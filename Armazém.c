@@ -16,8 +16,7 @@ int codigoNoEstoque()
 {
     int codigo = 1;
 
-    FILE *codigoEst;
-    codigoEst = fopen("CODIGO_NO_ESTOQUE.txt", "r+");
+    FILE *arquivo = fopen("CODIGO_NO_ESTOQUE.txt", "r+");
 
     if(codigoEst != NULL)
     {
@@ -27,15 +26,16 @@ int codigoNoEstoque()
     }
 
     codigoEst = fopen("CODIGO_NO_ESTOQUE.txt", "w+");
-    fprintf(codigoEst, "%d", codigo);
-    fclose(codigoEst);
+    fprintf(arquivo, "%d", codigo);
+
+    fclose(arquivo);
 
     return(codigo);
 }
 
 void cadastrarProduto()
 {
-    FILE *cadastrar = fopen("ESTOQUE.txt", "a+");
+    FILE *arquivo = fopen("ESTOQUE.txt", "a+");
 
     struct CadastrarProduto produto;
 
@@ -83,14 +83,13 @@ void cadastrarProduto()
 
     produto.codigo = codigoNoEstoque();
 
-    fprintf(cadastrar, "%d\n", produto.codigo);
-    fprintf(cadastrar, "%s\n", produto.nome);
-    fprintf(cadastrar, "%s\n", produto.descricao);
-    fprintf(cadastrar, "%s\n", produto.lote);
-    fprintf(cadastrar, "%s\n\n", produto.valor);
-    fclose(cadastrar);
+    fprintf(arquivo, "%d\n", produto.codigo);
+    fprintf(arquivo, "%s\n", produto.nome);
+    fprintf(arquivo, "%s\n", produto.descricao);
+    fprintf(arquivo, "%s\n", produto.lote);
+    fprintf(arquivo, "%s\n\n", produto.valor);
 
-    fclose(cadastrar);
+    fclose(arquivo);
 
     printf("\nO PRODUTO FOI CADASTRADO COM SUCESSO!\n\n");
 }
