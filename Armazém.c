@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 struct CadastrarProduto
 {
@@ -10,7 +11,6 @@ struct CadastrarProduto
     char lote[36];
     char valor[10];
 };
-
 
 int codigoNoEstoque()
 {
@@ -47,7 +47,7 @@ void cadastrarProduto()
     fflush(stdin);
     while(strlen(produto.nome) == 0)
     {
-        printf("O NOME DO PRODUTO NÃO FOI INSERIDO!\nINFORME O NOME:\n");
+        printf("O NOME DO PRODUTO NÃO FOI INFORMADO!\nINFORME O NOME:\n");
         scanf("%[^\n]", produto.nome);
         fflush(stdin);
     }
@@ -56,7 +56,7 @@ void cadastrarProduto()
     scanf("%[^\n]", produto.descricao);
     fflush(stdin);
     while(strlen(produto.descricao) == 0) {
-        printf("A DESCRIÇÃO DO PRODUTO NÃO FOI INSERIDA!\nINFORME A DESCRIÇÃO:\n");
+        printf("A DESCRIÇÃO DO PRODUTO NÃO FOI INFORMADA!\nINFORME A DESCRIÇÃO:\n");
         scanf("%[^\n]", produto.descricao);
         fflush(stdin);
     }
@@ -66,7 +66,7 @@ void cadastrarProduto()
     fflush(stdin);
     while(strlen(produto.lote) == 0)
     {
-        printf("O LOTE DO PRODUTO NÃO FOI INSERIDO!\nINFORME O LOTE:\n");
+        printf("O LOTE DO PRODUTO NÃO FOI INFORMADO!\nINFORME O LOTE:\n");
         scanf("%[^\n]", produto.lote);
         fflush(stdin);
     }
@@ -76,7 +76,7 @@ void cadastrarProduto()
     fflush(stdin);
     while(strlen(produto.valor) == 0)
     {
-        printf("\nO VALOR INSERIDO É INVÁLIDO!\nINFORME O VALOR NOVAMENTE:\n");
+        printf("\nO VALOR INFORMADO É INVÁLIDO!\nINFORME O VALOR NOVAMENTE:\n");
         scanf("%[^\n]", produto.valor);
         fflush(stdin);
     }
@@ -109,7 +109,7 @@ int comandos(int opcao)
                 break;
         default:
                 system("cls");
-                printf("\nOpção inválida.\n\n");
+                printf("\nOPÇÃO INVÁLIDA!\n\n");
                 system("pause");
                 system("cls");
                 break;
