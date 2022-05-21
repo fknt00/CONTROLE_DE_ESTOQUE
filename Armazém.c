@@ -3,30 +3,32 @@
 #include <locale.h>
 #include <string.h>
 
-struct CadastrarProduto
+typedef struct
 {
     int codigo;
     char nome[91];
     char descricao[512];
     char lote[36];
     char valor[10];
-};
+} Produto;
 
-int codigoNoEstoque()
+int codigoDoProduto()
 {
-    int codigo = 1;
+    int codigo;
 
-    FILE *arquivo = fopen("CODIGO_NO_ESTOQUE.txt", "r+");
+    FILE *arquivo = fopen("CODIGO_DO_PRODUTO.txt", "w+");
 
-    if(codigoEst != NULL)
+    if(arquivo == NULL)
     {
-        int codgEst;
-        fscanf(codigoEst, "%d", codgEst);
-        codgEst++;
+        codigo = 1;
+    }
+    else
+    {
+        fscanf(arquivo, "%d", codigo);
+        codigo++;
     }
 
-    codigoEst = fopen("CODIGO_NO_ESTOQUE.txt", "w+");
-    fprintf(arquivo, "%d", codigo);
+    fprintf(arquivo, "%d\n", codigo);
 
     fclose(arquivo);
 
@@ -37,7 +39,7 @@ void cadastrarProduto()
 {
     FILE *arquivo = fopen("ESTOQUE.txt", "a+");
 
-    struct CadastrarProduto produto;
+    Produto produto;
 
     printf("\n\n\t\t\t\t\t[CADASTRAR PRODUTO]\n\n");
     fflush(stdin);
@@ -81,7 +83,7 @@ void cadastrarProduto()
         fflush(stdin);
     }
 
-    produto.codigo = codigoNoEstoque();
+    produto.codigo = codigoDoProduto();
 
     fprintf(arquivo, "%d\n", produto.codigo);
     fprintf(arquivo, "%s\n", produto.nome);
@@ -92,6 +94,7 @@ void cadastrarProduto()
     fclose(arquivo);
 
     printf("\nO PRODUTO FOI CADASTRADO COM SUCESSO!\n\n");
+    fflush(stdin);
 }
 
 int comandos(int opcao)
