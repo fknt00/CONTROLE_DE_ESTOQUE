@@ -12,6 +12,38 @@ typedef struct
     char valor[10];
 } Produto;
 
+
+int listarEstoque()
+{
+    FILE *arquivo = fopen("ESTOQUE.txt", "r");
+
+    Produto produto;
+
+    if(arquivo == NULL)
+    {
+        printf("\nNÃO HÁ PRODUTOS NO ESTOQUE.\n\n");
+        return(0);
+    }
+
+    while(!feof(arquivo))
+    {
+        fscanf(arquivo, "%[^\n]\n", &produto.codigo);
+        fscanf(arquivo, "%[^\n]\n", &produto.nome);
+        fscanf(arquivo, "%[^\n]\n", &produto.descricao);
+        fscanf(arquivo, "%[^\n]\n", &produto.lote);
+        fscanf(arquivo, "%[^\n]\n\n", &produto.valor);
+
+        printf("CÓDIGO:\tPROD%d\n", produto.codigo);
+        printf("NOME:\t\t%s\n", produto.nome);
+        printf("DESCRIÇÃO:\t%s\n", produto.descricao);
+        printf("LOTE:\t\t%s\n", produto.lote);
+        printf("VALOR:\t\tR$%s\n\n", produto.valor);
+    }
+    fclose(arquivo);
+
+    return(0);
+}
+
 int codigoDoProduto()
 {
     int codigo;
@@ -24,10 +56,9 @@ int codigoDoProduto()
     }
     else
     {
-        fscanf(arquivo, "%d", codigo);
+        fscanf(arquivo, "%d", &codigo);
         codigo++;
     }
-
     fprintf(arquivo, "%d\n", codigo);
 
     fclose(arquivo);
@@ -109,6 +140,12 @@ int comandos(int opcao)
                 system("pause");
                 system("cls");
                 break;
+        case 2:
+                system("cls");
+                listarEstoque();
+                system("pause");
+                system("cls");
+                break;
         default:
                 system("cls");
                 printf("\nOPÇÃO INVÁLIDA!\n\n");
@@ -126,17 +163,22 @@ void menu()
     printf("\t\t\t  #\t\t   1 - CADASTRAR PRODUTO \t\t #\n");
     printf("\t\t\t  #\t\t\t\t\t\t\t #\n");
     printf("\t\t\t  ########################################################  \n");
+    printf("\t\t\t  #\t\t\t\t\t\t\t #\n");
+    printf("\t\t\t  #\t\t     2 - EXIBIR ESTOQUE \t\t #\n");
+    printf("\t\t\t  #\t\t\t\t\t\t\t #\n");
+    printf("\t\t\t  ########################################################  \n");
 }
 
 int main(void)
 {
+    int repetir = 1, opcao;
+
     mkdir("REGISTROS");
     chdir("REGISTROS");
     system("cls");
     system("MODE con cols=109 lines=44");
     setlocale(LC_ALL, "Portuguese");
 
-    int repetir = 1, opcao, cont;
     do
     {
         menu();
@@ -145,6 +187,7 @@ int main(void)
         system("cls");
         comandos(opcao);
     } while(repetir != 0);
+
 
     return(0);
 }
